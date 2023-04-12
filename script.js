@@ -13,29 +13,27 @@ function getData() {
       if (response.status === 200) {
         return response.json();
       }
-      throw new Error("Сервер не доступен, попробуйте позже");
+      throw new Error("Ошибка " + response.status);
     })
     .then((data) => {
       if (objectType.value === "films") {
-        resultBlock.textContent = data.title + data.director;
+        resultBlock.textContent = `TITLE: ${data.title} DIRECTOR: ${data.director}`;
       }
       if (objectType.value === "people") {
-        resultBlock.textContent = data.name + data.gender;
+        resultBlock.textContent = `NAME: ${data.name} GENDER: ${data.gender}`;
       }
       if (objectType.value === "planets") {
-        resultBlock.textContent = data.name + data.population;
+        resultBlock.textContent = `NAME: ${data.name} POPULATION: ${data.population}`;
       }
       if (objectType.value === "species") {
-        resultBlock.textContent = data.name;
+        resultBlock.textContent = `NAME: ${data.name}`;
       }
       if (objectType.value === "starships") {
-        resultBlock.textContent = data.name + data.max_atmosphering_speed;
+        resultBlock.textContent = `NAME: ${data.name} MAX SPEED: ${data.max_atmosphering_speed}`;
       }
       if (objectType.value === "vehicles") {
-        resultBlock.textContent = data.name + data.max_atmosphering_speed;
+        resultBlock.textContent = `NAME: ${data.name} MAX SPEED: ${data.max_atmosphering_speed}`;
       }
     })
-    .catch((err) => (errorBlock.textContent = "Ошибка"));
+    .catch((e) => (errorBlock.textContent = e));
 }
-
-/* Обязательно добавьте обработчик ответа: если ответ успешный, следующий обработчик then получит объект ответа на вход, если с ответом что-то не так, отклоните промис (для этого верните Promise.reject с кодом статуса ответа). Блок catch и finally использовать обязательно. */
